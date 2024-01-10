@@ -1,7 +1,8 @@
 import React from "react";
-import { SafeAreaView, StatusBar, StyleSheet, FlatList } from "react-native";
+import { FlatList} from "react-native";
 
 import Item from '../Servicos/item/index'
+import TelaPadrao from "../../components/TelaPadrao";
 
 const servicos = [
     {
@@ -30,17 +31,15 @@ const servicos = [
     },
 ];
 
-export default function Servicos() {
+export default function Carrinho() {
     return (
-        <SafeAreaView>
-            <StatusBar />
-            <FlatList
-                data={servicos}
-                removeClippedSubviews={false}
-                renderItem={({item}) => <Item {...item}  />}
-                keyExtractor={({id}) => String(id)}
-            />
-
-        </SafeAreaView>
+        <TelaPadrao>
+                <FlatList
+                    data={servicos}
+                    removeClippedSubviews={false}
+                    renderItem={({item}) => <Item {...item}  />}
+                    keyExtractor={({id}) => String(id)}
+                />
+        </TelaPadrao>
     );
 }

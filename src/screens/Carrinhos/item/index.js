@@ -5,10 +5,9 @@ import estilos from './estilos'
 import CampoInteiro from "../../../components/campoInteiro/index";
 import Botao from "../../../components/Botao/index"
 
-export default function Item({ nome, preco, descricao }) {
-    const [quantidade, setQuantidade] = useState(1);
-    const [total, setTotal] = useState(preco);
-    const [expandir, setExpandir] = useState(false);
+export default function Item({ nome, preco, descricao, quantidade : quantidadeInicial }) {
+    const [quantidade, setQuantidade] = useState(quantidadeInicial);
+    const [total, setTotal] = useState(preco * quantidadeInicial);
 
     const atualizaQuantidadeTotal = (novaQuantidade) => {
         setQuantidade(novaQuantidade);
@@ -19,14 +18,9 @@ export default function Item({ nome, preco, descricao }) {
         setTotal(novaQuantidade * preco);
     }
 
-    const inverterExpandir = () => {
-        setExpandir(!expandir);
-        atualizaQuantidadeTotal(1);
-    }
-
     return (
         <>
-            <TouchableOpacity style={estilos.informacao} onPress={inverterExpandir}>
+            <View  style={estilos.informacao}>
                 <Text style={estilos.nome}>{ nome }</Text>
                 <Text style={estilos.descricao}>{ descricao }</Text>
                 <Text style={estilos.preco}>{ 
@@ -34,8 +28,7 @@ export default function Item({ nome, preco, descricao }) {
                         style: 'currency', currency: 'BRL'
                     }).format(preco)
                 }</Text>
-            </TouchableOpacity>
-            {expandir &&
+            </View>
                 <View style={estilos.carrinho}>
                     <View>
                         <View style={estilos.valor}>
@@ -51,9 +44,8 @@ export default function Item({ nome, preco, descricao }) {
                             }</Text>
                         </View>
                     </View>
-                    <Botao valor="Adicionar ao carrinho" acao={() => {}}/>
+                    <Botao valor="Remover do carrinho" acao={() => {}}/>
                 </View>
-            }
             <View style={estilos.divisor} />
         </>
     )
